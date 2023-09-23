@@ -1,0 +1,7 @@
+fields: 
+    name: 
+        label: Hello
+    excel_file:
+        label: waka.importexport::lang.importexportlog.excel_file
+        type: fileupload
+        mode: file
