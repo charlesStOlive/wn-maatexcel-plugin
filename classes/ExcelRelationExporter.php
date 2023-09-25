@@ -38,6 +38,19 @@ class ExcelRelationExporter implements BaseProductor,SaveTo
         return $formWidget;
     }
 
+    /**
+     * Instancieation de la class creator
+     *
+     * @param string $url
+     * @return \Spatie\Browsershot\Browsershot
+     */
+    private static function instanciateCreator(string $templateCode, array $vars, array $options)
+    {
+        $productorClass = self::getConfig()['productorCreator'];
+        $class = new $productorClass($templateCode, $vars, $options);
+        return $class;
+    }
+
     public static function execute($code, $productorHandler, $allDatas):array {
         $modelId = Arr::get($allDatas, 'modelId');
         $modelClass = Arr::get($allDatas, 'modelClass');

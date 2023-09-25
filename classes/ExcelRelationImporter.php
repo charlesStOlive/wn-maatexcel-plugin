@@ -40,33 +40,45 @@ class ExcelRelationImporter implements BaseProductor
         return $formWidget;
     }
 
-    public static function execute($code, $responseType, $allDatas):array
+    /**
+     * Instancieation de la class creator
+     *
+     * @param string $url
+     * @return \Spatie\Browsershot\Browsershot
+     */
+    private static function instanciateCreator(string $templateCode, array $vars, array $options)
+    {
+        $productorClass = self::getConfig()['productorCreator'];
+        $class = new $productorClass($templateCode, $vars, $options);
+        return $class;
+    }
+
+    public static function execute($code, $responseType, $allDatas): array
     {
         //trace_log('execute----');
         $modelId = Arr::get($allDatas, 'modelId');
-        $modelClass = Arr::get($allDatas, 'modelClass');
         $sessionKey = Arr::get($allDatas, '_session_key');;
-        
-       
-            //trace_log($allDatas);
-            $iel = new \Waka\MaatExcel\Models\ImportExcel();
-            $iel->fill($allDatas['productorDataArray']);
-            $file = $iel
-                ->excel_file()
-                ->withDeferred($sessionKey)
-                ->first();
-            if(!$file) {
-                throw new ValidationException(['excel_file' => 'il manqie le fichier xlsx']);
-            }
-            //trace_log($file->getDiskPath());
-            self::importData($code, [], ['modelId' => $modelId, 'filePath' => $file->getDiskPath()]);
-            return [
-                'message' => 'Import terminé',
-                'btn' => [
-                    'label' => 'Fermer et rafraichir',
-                    'request' => 'onCloseAndRefresh'
-                ],
-            ];
+
+
+        //trace_log($allDatas);
+        $iel = new \Waka\MaatExcel\Models\ImportExcel();
+        $iel->fill($allDatas['productorDataArray']);
+        $file = $iel
+            ->excel_file()
+            ->withDeferred($sessionKey)
+            ->first();
+        if (!$file) {
+            throw new ValidationException(['excel_file' => 'il manqie le fichier xlsx']);
+        }
+        //trace_log($file->getDiskPath());
+        self::importData($code, [], ['modelId' => $modelId, 'filePath' => $file->getDiskPath()]);
+        return [
+            'message' => 'Import terminé',
+            'btn' => [
+                'label' => 'Fermer et rafraichir',
+                'request' => 'onCloseAndRefresh'
+            ],
+        ];
     }
 
     public static function importData($templateCode, $vars, $options = [], Closure $callback = null)
