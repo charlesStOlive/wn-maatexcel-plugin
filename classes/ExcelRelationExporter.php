@@ -2,68 +2,40 @@
 
 namespace Waka\MaatExcel\Classes;
 
-use Waka\Productor\Interfaces\BaseProductor;
-use Waka\Productor\Interfaces\SaveTo;
+use \Waka\Productor\Classes\Abstracts\BaseProductor;
 use Closure;
 use Arr;
 
 use Lang;
 
-class ExcelRelationExporter implements BaseProductor,SaveTo 
+class ExcelRelationExporter extends BaseProductor
 {
-    use \Waka\Productor\Classes\Traits\TraitProductor; 
 
-    public static function getConfig()
+    public static $config =  [
+        'label' => 'waka.maatexcel::lang.driver.excel_relation_exporter.label',
+        'icon' => 'icon-mjml',
+        'description' => 'waka.maatexcel::lang.excel_relation_exporter.description',
+        'productorCreator' => \Waka\MaatExcel\Classes\ExcelExportCreator::class,
+        'productorModel' => \Waka\MaatExcel\Models\ExportExcel::class,
+        'productorFilesRegistration' =>  'registerExcelRelationExport',
+        'noproductorBdd' => true,
+        'productor_yaml_config' => '~/plugins/waka/maatexcel/models/exportexcel/productor_config.yaml',
+        'methods' => [
+            'download' => [
+                'label' => 'Télécharger Excel',
+                'handler' => 'saveTo',
+            ]
+        ],
+    ];
+
+    public function execute($code, $productorHandler, $allDatas): array
     {
-        return [
-            'label' => Lang::get('waka.maatexcel::lang.driver.excel_relation_exporter.label'),
-            'icon' => 'icon-mjml',
-            'description' => Lang::get('waka.maatexcel::lang.excel_relation_exporter.description'),
-            'productorCreator' => \Waka\MaatExcel\Classes\ExcelExportCreator::class,
-            'productorModel' => \Waka\MaatExcel\Models\ExportExcel::class,
-            'productorFilesRegistration' =>  'registerExcelRelationExport',
-            'noproductorBdd' => true,
-            'productor_yaml_config' => '~/plugins/waka/maatexcel/models/exportexcel/productor_config.yaml',
-            'methods' => [
-                'download' => [
-                    'label' => 'Télécharger Excel',
-                    'handler' => 'saveTo',
-                ]
-            ],
-        ];
-    }
-
-    public static function updateFormwidget($slug, $formWidget) {
-        $formWidget->getField('output_name')->value = 'Export excel';
-        return $formWidget;
-    }
-
-    /**
-     * Instancieation de la class creator
-     *
-     * @param string $url
-     * @return \Spatie\Browsershot\Browsershot
-     */
-    private static function instanciateCreator(string $templateCode, array $vars, array $options)
-    {
-        $productorClass = self::getConfig()['productorCreator'];
-        $class = new $productorClass($templateCode, $vars, $options);
-        return $class;
-    }
-
-    public static function execute($code, $productorHandler, $allDatas):array {
-        $modelId = Arr::get($allDatas, 'modelId');
-        $modelClass = Arr::get($allDatas, 'modelClass');
-        $productorClass = self::getConfig()['productorCreator'];
-        $targetModel = $modelClass::find($modelId);
-        $data = [];
-        if ($targetModel) {
-            $data = $targetModel->dsMap('full');
-        }
+        $this->getBaseVars($allDatas);
+        $productorClass = $this->getStaticConfig()['productorCreator'];
         $opt = [
-            'modelId' => $modelId,
+            'modelId' => $this->modelId,
         ];
-        $creator = new $productorClass($code, $data, $opt);
+        $creator = new $productorClass($code, $this->data, $opt);
         $creator->setOutputName(\Arr::get($allDatas, 'productorDataArray.output_name', 'fichier_sans_nom'));
 
         try {
@@ -79,6 +51,12 @@ class ExcelRelationExporter implements BaseProductor,SaveTo
         } catch (\Exception $ex) {
             throw $ex;
         }
+    }
+
+    public static function updateFormwidget($slug, $formWidget)
+    {
+        $formWidget->getField('output_name')->value = 'Export excel';
+        return $formWidget;
     }
 
     public static function saveTo($templateCode, $vars = [], $options = [], $path = '', Closure $callback = null)

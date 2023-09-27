@@ -2,23 +2,21 @@
 
 namespace Waka\MaatExcel\Classes;
 
-use Waka\Productor\Interfaces\BaseProductor;
+use \Waka\Productor\Classes\Abstracts\BaseProductor;
 use Lang;
 use Arr;
 use Closure;
 use ApplicationException;
 use ValidationException;
 
-class ExcelRelationImporter implements BaseProductor
+class ExcelRelationImporter extends BaseProductor
 {
     use \Waka\Productor\Classes\Traits\TraitProductor;
 
-    public static function getConfig()
-    {
-        return [
-            'label' => Lang::get('waka.maatexcel::lang.driver.excel_relation_importer.label'),
+    public static $config = [
+            'label' => 'waka.maatexcel::lang.driver.excel_relation_importer.label',
             'icon' => 'icon-mjml',
-            'description' => Lang::get('waka.maatexcel::lang.excel_relation_importer.description'),
+            'description' => 'waka.maatexcel::lang.excel_relation_importer.description',
             'productorCreator' => \Waka\MaatExcel\Classes\ExcelImportCreator::class,
             'productorModel' => \Waka\MaatExcel\Models\ImportExcel::class,
             'productorFilesRegistration' =>  'registerExcelRelationImport',
@@ -33,7 +31,6 @@ class ExcelRelationImporter implements BaseProductor
                 ]
             ],
         ];
-    }
 
     public static function updateFormwidget($slug, $formWidget)
     {
@@ -48,18 +45,16 @@ class ExcelRelationImporter implements BaseProductor
      */
     private static function instanciateCreator(string $templateCode, array $vars, array $options)
     {
-        $productorClass = self::getConfig()['productorCreator'];
+        $productorClass = self::getStaticConfig('productorCreator');
         $class = new $productorClass($templateCode, $vars, $options);
         return $class;
     }
 
-    public static function execute($code, $responseType, $allDatas): array
+    public  function execute($code, $responseType, $allDatas): array
     {
         //trace_log('execute----');
         $modelId = Arr::get($allDatas, 'modelId');
         $sessionKey = Arr::get($allDatas, '_session_key');;
-
-
         //trace_log($allDatas);
         $iel = new \Waka\MaatExcel\Models\ImportExcel();
         $iel->fill($allDatas['productorDataArray']);
