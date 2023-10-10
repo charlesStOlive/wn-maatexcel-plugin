@@ -77,7 +77,7 @@ class ExportExcel extends Model
     public static function findBySlug($slug)
     {
         //trace_log('findBySlug code ',$slug );
-        $ExcelExportClass= PluginManager::instance()->getRegistrationMethodValues("registerExcelRelationExport");
+        $ExcelExportClass= PluginManager::instance()->getRegistrationMethodValues("registerExcelExport");
         foreach($ExcelExportClass as $pluginBundle) {
             foreach($pluginBundle as $key=>$config) {
                 if($key == $slug) {

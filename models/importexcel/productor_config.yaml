@@ -2,6 +2,6 @@ fields:
     name: 
         label: Hello
     excel_file:
-        label: waka.importexport::lang.importexportlog.excel_file
+        label: waka.maatexcel::lang.commons.import_excel
         type: fileupload
         mode: file

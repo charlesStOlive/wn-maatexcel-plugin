@@ -8,18 +8,18 @@ use Arr;
 
 use Lang;
 
-class ExcelRelationExporter extends BaseProductor
+class ExcelExporter extends BaseProductor
 {
 
     public static $config =  [
-        'label' => 'waka.maatexcel::lang.driver.excel_relation_exporter.label',
+        'label' => 'waka.maatexcel::lang.driver.excel_exporter.label',
         'icon' => 'icon-file-excel',
         'description' => 'waka.maatexcel::lang.excel_relation_exporter.description',
-        'productorCreator' => \Waka\MaatExcel\Classes\ExcelRelationExportCreator::class,
-        'productorModel' => \Waka\MaatExcel\Models\ExportRelationExcel::class,
-        'productorFilesRegistration' =>  'registerExcelRelationExport',
+        'productorCreator' => \Waka\MaatExcel\Classes\ExcelExportCreator::class,
+        'productorModel' => \Waka\MaatExcel\Models\ExportExcel::class,
+        'productorFilesRegistration' =>  'registerExcelExport',
         'noProductorBdd' => true,
-        'productor_yaml_config' => '~/plugins/waka/maatexcel/models/exportrelationexcel/productor_config.yaml',
+        'productor_yaml_config' => '~/plugins/waka/maatexcel/models/exportexcel/productor_config.yaml',
         'methods' => [
             'download' => [
                 'label' => 'Télécharger Excel',
@@ -32,16 +32,21 @@ class ExcelRelationExporter extends BaseProductor
     {
         $this->getBaseVars($allDatas);
         $productorClass = $this->getStaticConfig('productorCreator');
-        $initOptions = [
-            'modelId' => $this->modelId,
-        ];
+        $ids = \Session::get('waka.productor.productorindex.checkedIds');
+        $initOptions = [];
+        if ($ids) {
+            $initOptions = [
+                'listIds' => $ids,
+            ];
+        }
+
         $creator = new $productorClass($code, $initOptions, $this->data);
         $creator->setOutputName(\Arr::get($allDatas, 'productorDataArray.output_name', 'fichier_sans_nom'));
 
         try {
             $link =  $creator->saveTo();
             return [
-                'message' => 'waka.maatexcel::lang.driver.ere.execute.success.message',
+                'message' => 'waka.maatexcel::lang.driver.ee.execute.success.message',
                 'btn' => [
                     'label' => 'waka.productor::lang.drivers.sucess_label.close_download',
                     'request' => 'onCloseAndDownload',
@@ -53,9 +58,16 @@ class ExcelRelationExporter extends BaseProductor
         }
     }
 
-    public static function updateFormwidget($slug, $formWidget, $config = [])
+    public static function updateFormwidget($slug, $formWidget, $config)
     {
-        $formWidget->getField('output_name')->value = $config['output_name'] ?? 'Export excel';;
+        //trace_log('config',$config);
+        $formWidget->getField('output_name')->value = $config['output_name'] ?? 'Export excel';
+        // $ids = \Session::get('waka.productor.productorindex.checkedIds');
+        // if($ids) {
+        //     $formWidget->getField('mode')->value = 'checks';
+        // } else {
+        //     $formWidget->getField('mode')->hidden = true;
+        // }
         return $formWidget;
     }
 

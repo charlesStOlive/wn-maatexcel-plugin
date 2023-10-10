@@ -1,29 +1,63 @@
 <?php
 
 return [
+    'commons' => [
+        'import_excel' => 'Importer XLSX',
+    ],
     'driver' => [
+        'excel_exporter' => [
+            'label' => 'Exportation Excel',  
+        ],
         'excel_relation_exporter' => [
-            'label' => 'Export Excel (relations)'
+            'label' => 'Exportation Excel (relations)',  
         ],
         'excel_relation_importer' => [
-            'label' => 'Excel Import relations'
-        ]
+            'label' => 'Importation Excel (relations)', 
+        ],
+        'ee' => [
+            'execute' => [
+                'success' => [
+                    'message' => 'Exportation prête pour téléchargement', 
+                ],
+            ],
+        ],
+        'ei' => [
+            'execute' => [
+                'success' => [
+                    'message' => 'Importation terminée',  
+                ],
+            ],
+        ],
+        'ere' => [
+            'execute' => [
+                'success' => [
+                    'message' => 'Importation des relations terminée',  
+                ],
+            ],
+        ],
+        'eri' => [
+            'execute' => [
+                'success' => [
+                    'message' => 'Importation terminée',  
+                ],
+            ],
+        ],
     ],
     'models' => [
         'export_excel' => [
-            'output_name' => 'Nom du fichier à créer'
+            'configs' => 'Configuration',
+            'output_name' => 'Nom du fichier à créer',
         ],
-        'general' => [
-            'created_at' => 'Created At',
-            'id' => 'ID',
-            'updated_at' => 'Updated At'
-        ]
-    ],
-    'permissions' => [
-        'some_permission' => 'Some permission'
     ],
     'plugin' => [
-        'description' => 'PLugin fournissant des drivers ppour importer et exporter des élements avec Waka/Productor',
-        'name' => 'MaatExcel'
-    ]
+        'description' => 'Plugin fournissant des drivers pour importer et exporter des éléments avec Waka/Productor',  
+        'name' => 'MaatExcel',
+    ],
+    'excel_relation_exporter' => [
+        'description' => 'Exporte les relations d\'un modèle',
+    ],
+    'excel_relation_importer' => [
+        'description' => 'Importe les relations d\'un modèle',
+    ],
 ];
+

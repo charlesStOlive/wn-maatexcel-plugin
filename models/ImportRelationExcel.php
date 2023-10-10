@@ -8,7 +8,7 @@ use System\Classes\PluginManager;
 /**
  * ImportExport Model
  */
-class ImportExcel extends Model
+class ImportRelationExcel extends Model
 {
     use \Winter\Storm\Database\Traits\Validation;
 
@@ -82,7 +82,7 @@ class ImportExcel extends Model
     public static function findBySlug($slug)
     {
         //trace_log('findBySlug code ',$slug );
-        $ExcelExportClass= PluginManager::instance()->getRegistrationMethodValues("registerExcelImport");
+        $ExcelExportClass= PluginManager::instance()->getRegistrationMethodValues("registerExcelRelationImport");
         //trace_log($ExcelExportClass);
         foreach($ExcelExportClass as $pluginBundle) {
             foreach($pluginBundle as $key=>$config) {

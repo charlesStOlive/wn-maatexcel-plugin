@@ -41,6 +41,12 @@ class Plugin extends PluginBase
         $driverManager->registerDriver('excelerRelationImporter', function () {
             return new \Waka\MaatExcel\Classes\ExcelRelationImporter();
         });
+        $driverManager->registerDriver('excelerExporter', function () {
+            return new \Waka\MaatExcel\Classes\ExcelExporter();
+        });
+        $driverManager->registerDriver('excelerImporter', function () {
+            return new \Waka\MaatExcel\Classes\ExcelImporter();
+        });
 
     }
 

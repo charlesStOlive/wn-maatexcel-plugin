@@ -4,14 +4,11 @@ namespace Waka\MaatExcel\Models;
 
 use Model;
 use System\Classes\PluginManager;
-
 /**
  * ImportExport Model
  */
-class ImportExcel extends Model
+class ExportRelationExcel extends Model
 {
-    use \Winter\Storm\Database\Traits\Validation;
-
     /**
      * @var string The database table used by the model.
      */
@@ -20,12 +17,12 @@ class ImportExcel extends Model
     /**
      * @var array Guarded fields
      */
-    protected $guarded = [''];
+    protected $guarded = ['*'];
 
     /**
      * @var array Fillable fields
      */
-    protected $fillable = ['*'];
+    protected $fillable = [];
 
     /**
      * @var array Validation rules for attributes
@@ -72,9 +69,7 @@ class ImportExcel extends Model
     public $morphTo = [];
     public $morphOne = [];
     public $morphMany = [];
-    public $attachOne = [
-        'excel_file' => ['System\Models\File', 'delete' => true],
-    ];
+    public $attachOne = [];
     public $attachMany = [];
 
 
@@ -82,8 +77,7 @@ class ImportExcel extends Model
     public static function findBySlug($slug)
     {
         //trace_log('findBySlug code ',$slug );
-        $ExcelExportClass= PluginManager::instance()->getRegistrationMethodValues("registerExcelImport");
-        //trace_log($ExcelExportClass);
+        $ExcelExportClass= PluginManager::instance()->getRegistrationMethodValues("registerExcelRelationExport");
         foreach($ExcelExportClass as $pluginBundle) {
             foreach($pluginBundle as $key=>$config) {
                 if($key == $slug) {

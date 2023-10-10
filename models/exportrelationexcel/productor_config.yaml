@@ -1,0 +1,3 @@
+fields: 
+    output_name:
+        label: waka.maatexcel::lang.models.export_excel.output_name

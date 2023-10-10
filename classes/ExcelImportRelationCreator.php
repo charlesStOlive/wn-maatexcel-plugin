@@ -1,7 +1,7 @@
 <?php namespace Waka\MaatExcel\Classes;
 
 use Waka\Wutils\Classes\TinyUuid;
-class ExcelImportCreator 
+class ExcelImportRelationCreator 
 {
     public $maatExcelClass;
     public array $vars;
@@ -15,7 +15,7 @@ class ExcelImportCreator
     {
         //trace_log('constructor excelImport');
         //trace_log($options);
-        $modelConfig = \Waka\MaatExcel\Models\ImportExcel::findBySlug($slug);
+        $modelConfig = \Waka\MaatExcel\Models\ImportRelationExcel::findBySlug($slug);
         $modelId = $initOptions['modelId'];
         $maatClass = $modelConfig['class'];
         $this->path = $initOptions['filePath'];

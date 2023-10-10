@@ -7,7 +7,7 @@ use Excel;
 
 use Waka\Wutils\Classes\TinyUuid;
 
-class ExcelExportCreator
+class ExcelRelationExportCreator
 {
     public $maatExcelClass;
     public array $vars;
@@ -17,7 +17,7 @@ class ExcelExportCreator
 
     public function __construct($slug, $initOptions = [])
     {
-        $modelConfig = \Waka\MaatExcel\Models\ExportExcel::findBySlug($slug);
+        $modelConfig = \Waka\MaatExcel\Models\ExportRelationExcel::findBySlug($slug);
         $maatClass = $modelConfig['class'];
         $this->outputName = $initOptions['output_name'] ?? 'pas de nom';
         $this->maatExcelClass = new $maatClass($initOptions);
