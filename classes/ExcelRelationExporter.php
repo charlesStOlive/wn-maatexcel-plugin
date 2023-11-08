@@ -43,7 +43,7 @@ class ExcelRelationExporter extends BaseProductor
             return [
                 'message' => 'waka.maatexcel::lang.driver.ere.execute.success.message',
                 'btn' => [
-                    'label' => 'waka.productor::lang.drivers.sucess_label.close_download',
+                    'label' => 'waka.productor::lang.drivers.success_label.close_download',
                     'request' => 'onCloseAndDownload',
                     'link' => $link
                 ],

@@ -48,7 +48,7 @@ class ExcelImporter extends BaseProductor
             return [
                 'message' => 'waka.maatexcel::lang.driver.ei.execute.success.message',
                 'btn' => [
-                    'label' => 'waka.productor::lang.drivers.sucess_label.close_refresh',
+                    'label' => 'waka.productor::lang.drivers.success_label.close_refresh',
                     'request' => 'onCloseAndRefresh'
                 ],
             ];
