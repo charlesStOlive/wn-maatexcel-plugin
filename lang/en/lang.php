@@ -2,60 +2,60 @@
 
 return [
     'commons' => [
-        'import_excel' => 'Importer XLSX',
+        'import_excel' => 'Import XLSX',
     ],
     'driver' => [
         'ee' => [
             'execute' => [
                 'success' => [
-                    'message' => 'Exportation prête pour téléchargement',
+                    'message' => 'Export ready for download',
                 ],
             ],
         ],
         'ei' => [
             'execute' => [
                 'success' => [
-                    'message' => 'Importation terminée',
+                    'message' => 'Importation completed',
                 ],
             ],
         ],
         'ere' => [
             'execute' => [
                 'success' => [
-                    'message' => 'Importation des relations terminée',
+                    'message' => 'Relations importation completed',
                 ],
             ],
         ],
         'eri' => [
             'execute' => [
                 'success' => [
-                    'message' => 'Importation terminée',
+                    'message' => 'Importation completed',
                 ],
             ],
         ],
         'excel_exporter' => [
-            'label' => 'Exportation Excel',
+            'label' => 'Excel Export',
         ],
         'excel_relation_exporter' => [
-            'label' => 'Exportation Excel (relations)',
+            'label' => 'Excel Export (relations)',
         ],
         'excel_relation_importer' => [
-            'label' => 'Importation Excel (relations)',
+            'label' => 'Excel Import (relations)',
         ],
     ],
     'excel_relation_exporter' => [
-        'description' => 'Exporte les relations d\'un modèle',
+        'description' => 'Exports the relations of a model',
     ],
     'excel_relation_importer' => [
-        'description' => 'Importe les relations d\'un modèle',
+        'description' => 'Imports the relations of a model',
     ],
     'models' => [
         'export_excel' => [
-            'output_name' => 'Nom du fichier à créer',
+            'output_name' => 'Name of file to create',
         ],
     ],
     'plugin' => [
-        'description' => 'Plugin fournissant des drivers pour importer et exporter des éléments avec Waka/Productor',
+        'description' => 'Plugin providing drivers for importing and exporting items with Waka/Productor',
         'name' => 'MaatExcel',
     ],
 ];
