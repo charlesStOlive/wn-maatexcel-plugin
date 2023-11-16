@@ -47,15 +47,5 @@ class Plugin extends PluginBase
         $driverManager->registerDriver('excelerImporter', function () {
             return new \Waka\MaatExcel\Classes\ExcelImporter();
         });
-
-    }
-
-
-    /**
-     * Registers any backend permissions used by this plugin.
-     */
-    public function registerPermissions(): array
-    {
-        return []; // Remove this line to activate
     }
 }
