@@ -23,9 +23,9 @@ class ExcelRelationImporter extends BaseProductor
             'use_import_file_widget' => true,
             'productor_yaml_config' => '~/plugins/waka/maatexcel/models/importrelationexcel/productor_config.yaml',
             'methods' => [
-                'importData' => [
+                'prepareRelationImporter' => [
                     'label' => 'Importer Excel',
-                    'handler' => 'importExcel',
+                    'handler' => 'prepareRelationImporter',
                     'load-indicator' => true,
                 ]
             ],
@@ -49,7 +49,7 @@ class ExcelRelationImporter extends BaseProductor
         return $class;
     }
 
-    public  function execute($code, $responseType, $allDatas): array
+    public  function prepareRelationImporter($code,  $allDatas): array
     {
         //trace_log('execute----');
         $modelId = Arr::get($allDatas, 'modelId');

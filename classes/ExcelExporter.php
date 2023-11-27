@@ -21,14 +21,14 @@ class ExcelExporter extends BaseProductor
         'noProductorBdd' => true,
         'productor_yaml_config' => '~/plugins/waka/maatexcel/models/exportexcel/productor_config.yaml',
         'methods' => [
-            'download' => [
+            'prepareDownload' => [
                 'label' => 'Télécharger Excel',
                 'handler' => 'saveTo',
             ]
         ],
     ];
 
-    public function execute($code, $productorHandler, $allDatas): array
+    public function prepareDownload($code, $allDatas): array
     {
         $this->getBaseVars($allDatas);
         $productorClass = $this->getStaticConfig('productorCreator');

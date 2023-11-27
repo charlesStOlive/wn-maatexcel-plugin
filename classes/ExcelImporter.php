@@ -21,14 +21,14 @@ class ExcelImporter extends BaseProductor
         'noProductorBdd' => true,
         'productor_yaml_config' => '~/plugins/waka/maatexcel/models/importexcel/productor_config.yaml',
         'methods' => [
-            'download' => [
+            'prepareDownload' => [
                 'label' => 'Télécharger Excel',
-                'handler' => 'saveTo',
+                'handler' => 'prepareDownload',
             ]
         ],
     ];
 
-    public function execute($code, $productorHandler, $allDatas): array
+    public function prepareDownload($code, $allDatas): array
     {
         $this->getBaseVars($allDatas);
         $productorClass = $this->getStaticConfig('productorCreator');
@@ -60,12 +60,6 @@ class ExcelImporter extends BaseProductor
     public static function updateFormwidget($slug, $formWidget, $config = [])
     {
         $formWidget->getField('output_name')->value = $config['output_name'] ?? 'Export excel';;
-        // $ids = \Session::get('waka.productor.productorindex.checkedIds');
-        // if($ids) {
-        //     $formWidget->getField('mode')->value = 'checks';
-        // } else {
-        //     $formWidget->getField('mode')->hidden = true;
-        // }
         return $formWidget;
     }
 
