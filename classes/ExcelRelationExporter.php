@@ -59,9 +59,23 @@ class ExcelRelationExporter extends BaseProductor
         return $formWidget;
     }
 
+    /**
+     * Instancieation de la class creator
+     *
+     * @param string $url
+     * @return \Spatie\Browsershot\Browsershot
+     */
+    private static function instanciateCreator(string $templateCode, array $vars, array $initoptions)
+    {
+        $productorClass = self::getStaticConfig('productorCreator');
+        $class = new $productorClass($templateCode, $initoptions);
+        return $class;
+    }
+
     public static function saveTo($templateCode, $vars = [], $options = [], $path = '', Closure $callback = null)
     {
         // Créer l'instance de pdf
+
         $creator = self::instanciateCreator($templateCode, $vars, $options);
         // Appeler le callback pour définir les options
         if (is_callable($callback)) {

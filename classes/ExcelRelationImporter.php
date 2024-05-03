@@ -16,7 +16,7 @@ class ExcelRelationImporter extends BaseProductor
             'label' => 'waka.maatexcel::lang.driver.excel_relation_importer.label',
             'icon' => 'icon-file-excel',
             'description' => 'waka.maatexcel::lang.excel_relation_importer.description',
-            'productorCreator' => \Waka\MaatExcel\Classes\ExcelImportCreator::class,
+            'productorCreator' => \Waka\MaatExcel\Classes\ExcelImportRelationCreator::class,
             'productorModel' => \Waka\MaatExcel\Models\ImportRelationExcel::class,
             'productorFilesRegistration' =>  'registerExcelRelationImport',
             'noProductorBdd' => true,

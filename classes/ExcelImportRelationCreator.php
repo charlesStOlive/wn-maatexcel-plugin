@@ -13,7 +13,7 @@ class ExcelImportRelationCreator
 
     public function __construct($slug, $initOptions = [])
     {
-        //trace_log('constructor excelImport');
+        //trace_log('constructor ExcelImportRelationCreator!!!', $slug);
         //trace_log($options);
         $modelConfig = \Waka\MaatExcel\Models\ImportRelationExcel::findBySlug($slug);
         $modelId = $initOptions['modelId'];
