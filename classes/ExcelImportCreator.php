@@ -16,11 +16,9 @@ class ExcelImportCreator
         //trace_log('constructor ExcelImportCreator');
         //trace_log($initOptions);
         $modelConfig = \Waka\MaatExcel\Models\ImportExcel::findBySlug($slug);
-        //trace_log($modelConfig->toArray());
-        $modelId = $initOptions['modelId'];
         $maatClass = $modelConfig['class'];
         $this->path = $initOptions['filePath'];
-        $this->maatExcelClass = new $maatClass($modelId);
+        $this->maatExcelClass = new $maatClass();
 
     }
 

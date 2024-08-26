@@ -42,6 +42,9 @@ return [
         'excel_relation_importer' => [
             'label' => 'Importation Excel (relations)',
         ],
+        'excel_importer' => [
+            'label' => 'Import Excel',
+        ],
     ],
     'excel_relation_exporter' => [
         'description' => 'Exporte les relations d\'un modèle',

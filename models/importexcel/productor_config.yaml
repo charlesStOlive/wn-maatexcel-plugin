@@ -1,6 +1,6 @@
 fields: 
-    name: 
-        label: Hello
+    # name: 
+    #     label: Hello
     excel_file:
         label: waka.maatexcel::lang.commons.import_excel
         type: fileupload

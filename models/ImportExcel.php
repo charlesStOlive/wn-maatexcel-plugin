@@ -82,9 +82,9 @@ class ImportExcel extends Model
     public static function findBySlug($slug)
     {
         //trace_log('findBySlug code ',$slug );
-        $ExcelExportClass= PluginManager::instance()->getRegistrationMethodValues("registerExcelImport");
+        $ExcelImportClass= PluginManager::instance()->getRegistrationMethodValues("registerExcelImport");
         //trace_log($ExcelExportClass);
-        foreach($ExcelExportClass as $pluginBundle) {
+        foreach($ExcelImportClass as $pluginBundle) {
             foreach($pluginBundle as $key=>$config) {
                 if($key == $slug) {
                     //trace_log('config founded!', $config);
